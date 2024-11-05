@@ -1,0 +1,58 @@
+.notify{
+    &__dropdown{
+        box-shadow: 0 3px 6px -4px #0000001f, 0 6px 16px #00000014, 0 9px 28px 8px #0000000d;
+        background-color: #fff;
+        border-radius: 2px;
+        overflow: hidden;
+        min-width: 250px;
+    }
+    &__header{
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 15px;
+        background-color: #fff;
+        border-bottom: 1px solid #eee;
+    }
+    &__body{
+        // khi nội dung đủ dài sẽ hiển thị thanh cuộn
+        max-height: 270px;
+        overflow-y: auto;
+        .ant-dropdown-menu{
+            box-shadow: none;
+        }
+        .ant-dropdown-menu-item{
+             border-bottom: 1px solid #eee;
+        }
+    }
+    
+    &__item{
+        display: flex;
+        align-items: center;
+        padding: 10px ;
+        &-title{
+            font-weight: 500;
+        }
+        &-time{
+            font-size: 8px;
+        }
+        &-icon{
+            width: 40px;
+            height: 40px;
+            background-color: #e1eaf2;
+            border-radius: 50%;
+            align-items: center;
+            justify-content: center;
+            display: flex;
+            margin-right: 15px;
+            span{
+                font-size: 24px;
+                color: #5895ef;
+            }
+        }
+        &-time{
+            font-size: 12px;
+        }
+    }
+}
+

@@ -1,0 +1,37 @@
+.container-header {
+            height: 85vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;            
+            background-color: #00a139;
+            background-image: url('https://truyxuat.gov.vn/templates/vnnews/images/hero-bottom-shape-2.svg'); /* Họa tiết vân */
+            background-repeat: repeat;
+            background-size:cover;
+            background-position: center;
+            text-align: center;
+            color: white;
+            &__content {
+            background-color: rgba(0, 0, 0,0.15);
+            padding: 30px 30px 40px 30px;
+            border-radius: 10px;
+            align-items: center;
+        }
+}
+.ant-input-search-button{
+    background-color: #088B3C !important;
+}
+.imgTrace{
+    min-width: 100%;
+    margin: 0 auto;
+}
+.Instructions-forUse{
+    &__item{
+        color: #00a139;
+        text-align: center;
+        li{
+           margin: 20px;
+           font-size: 14px;
+        }
+    }
+}
+       

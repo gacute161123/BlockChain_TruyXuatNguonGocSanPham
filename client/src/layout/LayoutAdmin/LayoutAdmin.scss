@@ -1,0 +1,61 @@
+.headerAdmin{
+    display: flex;
+    border-bottom: 1px solid #00a139;
+    background-color: #00a139;
+    &__logo{
+        width: 250px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-right: 1px solid #c1c4c8;
+        transition: all 0.2s;
+    }
+    &__logo--collapsed{
+        width: 80px;
+        transition: all 0.2s;
+    }
+    &__nav{
+        padding: 10px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        flex: 1; // chiếm phần còn lại
+        margin: 0px 20px;
+
+        &-left{
+            display: flex;
+            align-items: center;
+            font-size: 20px;
+        }
+        &-right{
+            display: flex;
+            align-items: center;
+            line-height: 1.2;
+            &-home{
+                background-color: #f0f0f0; 
+                color: #00a139; 
+                border: none;
+               
+              &:hover {
+                background-color: #00a139 !important; 
+                color: #fff !important; 
+                border: 1px solid #fff !important;
+                }
+            }
+}
+
+    &__collapse{
+        margin-right: 20px;
+        cursor: pointer;
+    }
+    }   
+}
+
+.siderAdmin{
+    border-right: 1px solid #edf2f9;
+}
+
+.contentAdmin{
+    padding:0px 20px;
+    min-height: 600px;
+} 

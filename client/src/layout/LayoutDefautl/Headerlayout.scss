@@ -1,0 +1,20 @@
+.header{
+    display: flex;
+    background-color: #00a139;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0px 110px;
+    min-height: 85px;
+    &__light{
+       display: flex;
+    justify-content: space-between;
+    align-items: center;
+  
+    }
+}
+.fontchu{
+     font-weight: 400;
+     font-size: 14px;
+      color: #ffffff;
+     cursor: pointer;
+}

@@ -1,0 +1,29 @@
+.menu{
+    display: flex;
+      justify-content: center;
+    align-items: center;
+    width: 100%;
+    ul{
+        list-style: none;
+        display: flex;
+        padding: 0;
+        margin: 0;
+         li {
+            margin: 10px;
+            position: relative;
+        }
+    }
+    &__link {
+    color: #ffffff;
+    text-decoration: none;
+    margin: 14px;
+    &--active {
+      color: #b4b4b4;
+      padding: 5px 10px;
+      border-radius: 5px;
+    }
+    &:hover {
+        color: rgb(115, 159, 124);
+    }
+  }
+}

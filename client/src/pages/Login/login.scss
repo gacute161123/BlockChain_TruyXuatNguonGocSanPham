@@ -1,0 +1,32 @@
+.login-content{
+    &__title{
+        text-align: center;
+        font-size: 65px;
+        font-weight: 900;
+        font-style: italic;
+        color: #ffffff;
+        -webkit-text-stroke: 1px #000;
+        padding-top: 30px;
+    }
+    &__description{
+        text-align: center;
+        // font-size: 18px;
+        //  color: #353535;
+        //  font-weight: 700;
+          font-style: italic;
+    }
+  
+}
+.ButtonLogin{
+  color: #ffffff;
+  transition: all 0.3s ease;
+  border-radius: 5px;
+  width: 140px;
+  height: 40px;
+   background-color: #00a139;
+  &:hover {
+     border: 1px solid #00a139 !important;
+    background-color: #ffffff !important;
+    color: #00a139 !important;
+  }
+}

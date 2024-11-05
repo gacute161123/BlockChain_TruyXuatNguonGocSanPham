@@ -1,0 +1,21 @@
+.FormSearchNoFind {
+  display: flex;
+  justify-content: center;
+  align-items: center; 
+  &__content {
+    text-align: center; 
+    padding: 20px; 
+    border-radius: 10px; 
+    img {
+      margin-bottom: 20px;
+    }
+    
+    &__content_title {
+      div {
+        margin-top: 10px;
+        font-size: 18px; 
+        color: #333; 
+      }
+    }
+  }
+}

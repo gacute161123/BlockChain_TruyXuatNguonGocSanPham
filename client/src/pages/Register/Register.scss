@@ -1,0 +1,19 @@
+.register-content{
+    &__title{
+          text-align: center;
+        font-size: 65px;
+        font-weight: 900;
+        font-style: italic;
+        color: #ffffff;
+        -webkit-text-stroke: 1px #000;
+             padding-top: 30px;
+    }
+    &__description{
+      text-align: center;
+        // font-size: 18px;
+        //  color: #353535;
+        //  font-weight: 700;
+          font-style: italic;
+    }
+  
+}
