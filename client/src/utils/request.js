@@ -41,6 +41,23 @@ export const postProduct = async(path,option)=>{
   const result = await response.json();
   return result;
 }
+export const postAuditlog = async(path,option)=>{
+  const response = await fetch(API_DOMAIN + path, {
+    method: "POST",
+    body: option, // Đưa FormData vào body
+  });
+  const result = await response.json();
+  return result;
+}
+export const putAuditlog = async (path, option) => {
+  const response = await fetch(API_DOMAIN + path, {
+    method: "PUT",
+    body: option, // Đưa FormData vào body
+  });
+  const result = await response.json();
+  return result;
+};
+
 
 export const del = async (path)=>{
     const response = await fetch(API_DOMAIN + path, {

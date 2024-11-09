@@ -38,7 +38,11 @@ function ChuKyDienTu() {
       <Card
         title="Cài đặt chữ ký số"
         extra={
-          <Button className="button-create" onClick={showModal}>
+          <Button
+            className="button-create"
+            onClick={showModal}
+            disabled={dataUser.certificate && dataUser.certificate.length !== 0 ? true:false}
+          >
             Tạo chữ ký số
           </Button>
         }
@@ -51,7 +55,7 @@ function ChuKyDienTu() {
             initialValues={dataUser}
           >
             <Form.Item label="Khóa công khai" name="certificate">
-              <Input readOnly />
+              <Input.TextArea readOnly />
             </Form.Item>
             <Form.Item>
               <Button
@@ -64,11 +68,11 @@ function ChuKyDienTu() {
             </Form.Item>
           </Form>
         ) : (
-          <></>
+          <>Bạn chưa tạo khóa vui lòng tạo khóa</>
         )}
       </Card>
       <Modal
-        title="Tạo Chữ Ký điện tử"
+        title="Tạo Chữ Ký số"
         open={isModalOpen}
         onCancel={handleCancel}
         footer={null}

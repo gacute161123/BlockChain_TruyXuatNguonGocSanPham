@@ -8,8 +8,9 @@ import {
   notification,
 } from "antd";
 import { useEffect, useState } from "react";
-import { getAuditlogList } from "../../services/auditlogService";
+import { createAuditlog, getAuditlogList } from "../../services/auditlogService";
 import { getProductionStagesList } from "../../services/productionStagesService";
+import { getTimeCurrent } from "../../components/GetTimeCurrent";
 function CreateAuditlog(props) {
   const { onReload, handleCancel } = props;
   const [notifiapi, contextHolder] = notification.useNotification();
@@ -34,8 +35,36 @@ function CreateAuditlog(props) {
         }
         fetchApi();
     },[])
-   const handleSubmit = async (e) => {
-    
+   const handleSubmit = async (values) => {
+        values.createAt = getTimeCurrent();
+      const newFormData = new FormData();
+      newFormData.append("certificateImage", file); // Đúng key 'imageUrl'
+      newFormData.append("productionStageID", values.productionStageID);
+      newFormData.append("inspector", values.inspector);
+      newFormData.append("inspectionDate", values.inspectionDate);
+      newFormData.append("status", values.status);
+      newFormData.append("notes", values.notes);
+       for (let [key, value] of newFormData.entries()) {
+         console.log(`${key}: ${value}`);
+       }
+
+     const response = await createAuditlog(newFormData);
+     console.log("response"+response);
+     if (response.status === "OKE") {
+       handleCancel();
+       onReload();
+       notifiapi.success({
+         message: "success",
+         description: `Bạn đã tạo mới nhật ký kiểm tra thành công`,
+         duration: 1, // hiển thị trong bao lâu thời gian
+       });
+       //  form.resetFields();
+     } else {
+       notifiapi.error({
+         message: "error",
+         description: "Xin lỗi, vui lòng thử lại sau",
+       });
+     }
    };
 
   return (
@@ -74,7 +103,7 @@ function CreateAuditlog(props) {
         <Form.Item label="Trạng thái" name="status" rules={rules}>
           <Select
             style={{ width: "100%" }}
-            defaultValue={statusAuditlog[0]}
+            defaultValue="Đạt"
             options={statusAuditlog.map((item, index) => ({
               key: index,
               value: item,
@@ -91,6 +120,9 @@ function CreateAuditlog(props) {
               }
             }}
           />
+        </Form.Item>
+        <Form.Item label="Ghi chú" name="notes" rules={rules}>
+          <Input />
         </Form.Item>
         <Form.Item>
           <Button type="primary" htmlType="submit" className="button-create">

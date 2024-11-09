@@ -33,6 +33,28 @@ function CreateChuKyDienTu(props) {
     }
   };
 
+  const handleCopyCertificate = () => {
+    if (dataCKDT?.certificate) {
+      navigator.clipboard.writeText(dataCKDT.certificate);
+      notifiapi.success({
+        message: "Copy Success",
+        description: "Khóa công khai đã được sao chép vào clipboard",
+      });
+    }
+  };
+
+   const handleDownloadCertificate = () => {
+     if (dataCKDT?.certificate) {
+       const blob = new Blob([dataCKDT.certificate], { type: "text/plain" });
+       const url = URL.createObjectURL(blob);
+       const a = document.createElement("a");
+       a.href = url;
+       a.download = "certificate.txt";
+       a.click();
+       URL.revokeObjectURL(url);
+     }
+   };
+
   const handleCopyPrivateKey = () => {
     if (dataCKDT?.privateKey) {
       navigator.clipboard.writeText(dataCKDT.privateKey);
@@ -68,6 +90,22 @@ function CreateChuKyDienTu(props) {
           <>
             <Form.Item label="Khóa công khai (Certificate)">
               <TextArea value={dataCKDT.certificate} readOnly />
+              <Button
+                type="primary"
+                onClick={handleCopyCertificate}
+                style={{ marginTop: "10px", marginRight: "10px" }}
+                className="button-filter"
+              >
+                Sao chép khóa công khai
+              </Button>
+              <Button
+                type="primary"
+                onClick={handleDownloadCertificate}
+                style={{ marginTop: "10px" }}
+                className="button-filter"
+              >
+                Tải xuống khóa công khai
+              </Button>
             </Form.Item>
             <Form.Item label="Khóa bí mật (Private Key)">
               <TextArea value={dataCKDT.privateKey} readOnly />
@@ -100,14 +138,14 @@ function CreateChuKyDienTu(props) {
           >
             Hủy bỏ
           </Button>
-          <Button
-            type="primary"
-            htmlType="submit"
-            className="button-create"
-            style={{ float: "right", marginRight: "10px" }}
-          >
-            Tạo chữ ký
-          </Button>
+            <Button
+              type="primary"
+              htmlType="submit"
+              className="button-create"
+              style={{ float: "right", marginRight: "10px" }}
+            >
+              Tạo chữ ký
+            </Button>
         </Form.Item>
       </Form>
     </>

@@ -5,6 +5,11 @@ export const taokhoachonguoidung = async (id) => {
   return result;
 };
 
+export const deleteUser = async (id) => {
+  const result = await del(`user/delete-user/${id}`);
+  return result;
+};
+
 export const getUserById = async (id) => {
   const result = await get(`user/get-detail/${id}`);
   return result;

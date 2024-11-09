@@ -24,7 +24,9 @@ function MenuSider() {
       icon: <DashboardOutlined />,
       className: "menu-link",
     },
-    ...(userRole === "COMPANY" || userRole === "ADMIN"
+    ...(userRole === "COMPANY" ||
+    userRole === "ADMIN" ||
+    userRole === "QUALITY_UNIT"
       ? [
           {
             key: "/product-manage",

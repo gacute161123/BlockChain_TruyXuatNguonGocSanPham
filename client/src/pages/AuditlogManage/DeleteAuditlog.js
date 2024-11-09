@@ -1,12 +1,12 @@
 import { Button, Popconfirm, notification } from "antd";
 import { DeleteOutlined } from "@ant-design/icons";
-import { deleteSupplier } from "../../services/supplierService";
-import { deleteUser } from "../../services/userService";
-function DeleteRole(props) {
+import { deleteAuditlog } from "../../services/auditlogService";
+
+function DeleteAuditlog(props) {
   const { record, onReload } = props;
   const [notifiapi, contextHolder] = notification.useNotification();
   const handleDelete = async () => {
-    const response = await deleteUser(record._id);
+    const response = await deleteAuditlog(record._id);
     if (response) {
       onReload();
       notifiapi.success({
@@ -34,4 +34,4 @@ function DeleteRole(props) {
     </>
   );
 }
-export default DeleteRole;
+export default DeleteAuditlog;

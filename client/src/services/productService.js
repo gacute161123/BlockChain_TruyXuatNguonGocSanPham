@@ -1,4 +1,14 @@
 import { get, post, del, patch, put, postProduct } from "../utils/request";
+
+export const createProductToBlockChain = async (data) => {
+  const result = await post("product/createProductToBlockChain", data);
+  return result;
+};
+export const editCheckStatusProductToBlockChain = async (data) => {
+  const result = await put("product/editCheckStatusProductToBlockChain", data);
+  return result;
+};
+
 export const getProductList = async () => {
   const result = await get("product/getall");
   return result;

@@ -9,34 +9,50 @@ import {
   CheckCircleOutlined,
 } from "@ant-design/icons";
 import { getSupplierById } from "../../services/supplierService";
+import { getProductionStagesFindByID } from "../../services/productionStagesService"; // Import service
 import CreateProduct from "./CreateProduct";
 import EditProduct from "./EditProduct";
 import DeleteProduct from "./DeleteProduct";
 
 function ProductManage() {
-  const [dataProduct, setDataProduct] = useState("");
+  const [dataProduct, setDataProduct] = useState([]);
   const [supplierNames, setSupplierNames] = useState({});
-  const [productionStagesStatus, setProductionStagesStatus] = useState({});
+  const [productionStageNames, setProductionStageNames] = useState({}); // New state for stage names
   const [isModalOpen, setIsModalOpen] = useState(false);
+
   const fetchApi = async () => {
     const response = await getProductList();
     if (response) {
       setDataProduct(response);
-      // Tạo một đối tượng để lưu tên nhà cung cấp
+
       const supplierNameMap = {};
-      // Lặp qua các sản phẩm và gọi API để lấy tên nhà cung cấp theo từng sản phẩm
+      const stageNameMap = {}; // For storing production stage names
+
       for (const product of response) {
+        // Fetch supplier name
         if (product.supplierID) {
           const supplier = await getSupplierById(product.supplierID);
           if (supplier) {
-            supplierNameMap[product.supplierID] = supplier.name; // Giả sử trường 'name' là tên nhà cung cấp
+            supplierNameMap[product.supplierID] = supplier.name;
+          }
+        }
+
+        // Fetch production stage names
+        if (product.productionStagesID) {
+          for (const stageID of product.productionStagesID) {
+            if (!stageNameMap[stageID]) {
+              // Avoid duplicate API calls
+              const stage = await getProductionStagesFindByID(stageID);
+              if (stage) {
+                stageNameMap[stageID] = stage.stageName;
+              }
+            }
           }
         }
       }
-      // Cập nhật state với tên nhà cung cấp
-      setSupplierNames(supplierNameMap);
 
-      // giai đoạn sản xuất
+      setSupplierNames(supplierNameMap);
+      setProductionStageNames(stageNameMap); // Set the stage names
     }
   };
 
@@ -47,6 +63,7 @@ function ProductManage() {
   const handleReload = () => {
     fetchApi();
   };
+
   const showModal = () => {
     setIsModalOpen(true);
   };
@@ -57,7 +74,7 @@ function ProductManage() {
 
   const [pagination, setPagination] = useState({
     current: 1,
-    pageSize: 3, 
+    pageSize: 5,
   });
 
   const handleTableChange = (pagination) => {
@@ -81,7 +98,7 @@ function ProductManage() {
       key: "imageUrl",
       render: (imageUrl) => (
         <Image
-          src={imageUrl} // Giữ nguyên như cũ
+          src={imageUrl}
           alt="product"
           style={{ width: "100px", height: "100px", objectFit: "cover" }}
         />
@@ -94,21 +111,36 @@ function ProductManage() {
       render: (supplierID) => supplierNames[supplierID] || "Đang tải...",
     },
     {
-      title: "Mã giai đoạn sản xuất",
+      title: "Tên giai đoạn sản xuất", // Updated column title
       dataIndex: "productionStagesID",
       key: "productionStagesID",
       render: (productionStagesID) =>
-        productionStagesID.map((item) => (
-          <Tag color="success" key={item}>
-            {item}
+        productionStagesID.map((stageID) => (
+          <Tag color="success" key={stageID}>
+            {productionStageNames[stageID] || "Đang tải..."}
           </Tag>
         )),
     },
+  {
+    title: "Trạng thái kiểm định",
+    dataIndex: "checkStatus",
+    key: "checkStatus",
+    render: (checkStatus) => {
+      if (checkStatus === "Chưa kiểm định") {
+        return <Tag color="#f50">Chưa kiểm định</Tag>;
+      } else if (checkStatus === "Kiểm định 1") {
+        return <Tag color="#87d068">Kiểm định 1</Tag>;
+      } else if (checkStatus === "Kiểm định 2") {
+        return <Tag color="#87d068">Kiểm định 2</Tag>;
+      } else {
+        return <Tag color="#2db7f5">Hoàn tất kiểm định</Tag>;
+      }
+    }
+  },
     {
       title: "Hành động",
       key: "actions",
       render: (_, record) => {
-        // record trả về từng bản ghi
         return (
           <>
             <Row style={{ display: "flex", justifyContent: "center" }}>
@@ -135,6 +167,7 @@ function ProductManage() {
       },
     },
   ];
+
   return (
     <>
       <div style={{ color: "#00a139", fontSize: "22px", fontWeight: "500" }}>
@@ -164,10 +197,9 @@ function ProductManage() {
         rowKey="id"
         dataSource={dataProduct}
         columns={columns}
-        pagination={pagination} // Thiết lập phân trang
-        onChange={handleTableChange} // Bắt sự kiện khi người dùng chuyển trang
+        pagination={pagination}
+        onChange={handleTableChange}
       ></Table>
-      {/* Tạo nhà cung cấp */}
       <Modal
         title="Tạo sản phẩm"
         open={isModalOpen}
@@ -179,4 +211,5 @@ function ProductManage() {
     </>
   );
 }
+
 export default ProductManage;
